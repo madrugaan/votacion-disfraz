@@ -160,10 +160,6 @@
             font-size: 1.2rem;
             text-transform: uppercase;
         }
-
-		#resultados .leader-name {
-  	  		font-size: 1.2rem !important;
-		}
 		
         .result-bar-container {
             background-color: #333;
@@ -344,7 +340,8 @@
                 const leaderName = document.createElement('div');
                 leaderName.className = 'leader-name';
                 leaderName.textContent = resultado.nombre;
-                
+                leaderName.style.fontSize = '19.2px';
+				
                 const resultBarContainer = document.createElement('div');
                 resultBarContainer.className = 'result-bar-container';
 
@@ -425,5 +422,6 @@
 </body>
 
 </html>
+
 
 
