@@ -157,7 +157,7 @@
         
         .leader-name {
             font-family: 'Roboto Slab', serif;
-            font-size: 19.2px;
+            font-size: 1.2vw;
             text-transform: uppercase;
         }
 		
@@ -328,6 +328,8 @@
             
             resultadosOrdenables.sort((a, b) => b.votos - a.votos);
 
+			document.body.style.fontSize = "16px";
+
             resultadosOrdenables.forEach(resultado => {
                 const leaderResult = document.createElement('div');
                 leaderResult.className = 'leader-result';
@@ -340,7 +342,6 @@
                 const leaderName = document.createElement('div');
                 leaderName.className = 'leader-name';
                 leaderName.textContent = resultado.nombre;
-                leaderName.style.fontSize = '19.2px';
 				
                 const resultBarContainer = document.createElement('div');
                 resultBarContainer.className = 'result-bar-container';
@@ -422,6 +423,7 @@
 </body>
 
 </html>
+
 
 
 
