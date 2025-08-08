@@ -157,7 +157,7 @@
         
         .leader-name {
             font-family: 'Roboto Slab', serif;
-            font-size: 1.2vw;
+            font-size: 19.2px !important;
             text-transform: uppercase;
         }
 		
@@ -328,8 +328,6 @@
             
             resultadosOrdenables.sort((a, b) => b.votos - a.votos);
 
-			document.body.style.fontSize = "16px";
-
             resultadosOrdenables.forEach(resultado => {
                 const leaderResult = document.createElement('div');
                 leaderResult.className = 'leader-result';
@@ -423,6 +421,7 @@
 </body>
 
 </html>
+
 
 
 
