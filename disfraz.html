@@ -450,7 +450,7 @@ margin-left: 11rem;
         const urlWebhookResultados = 'https://n8n.service-automate-madruga.es/webhook/conteo';
 
 		// URL del Webhook para la subida de archivos
-        const urlWebhookSubida = 'http://n8n.service-automate-madruga.es/webhook/multimedia';
+        const urlWebhookSubida = 'https://n8n.service-automate-madruga.es/webhook/multimedia';
 
         // lista de líderes
         const lideres = ["Donald Trump", "Vladimir Putin", "Milei", "Zelensky", "El PAPA", "Nicolás Maduro", "Kim Jong-Un", "Pedro Sánchez"];
@@ -721,7 +721,7 @@ async function uploadFile() {
     }
 
     uploadStatus.textContent = `Subiendo ${files.length} archivo(s)...`;
-    uploadStatus.style.color = '#556B2F';
+    uploadStatus.style.color = '#ffffff';
     
     const formData = new FormData();
     
@@ -737,7 +737,7 @@ async function uploadFile() {
         
         if (response.ok) {
             uploadStatus.textContent = `¡${files.length} archivo(s) subido(s) con éxito!`;
-            uploadStatus.style.color = '#ffffff';
+            uploadStatus.style.color = '#556B2F'; 
             // Opcional: Limpiar el input de archivo después de la subida
             fileInput.value = '';
         } else {
@@ -754,3 +754,4 @@ async function uploadFile() {
     </script>
 </body>
 </html>
+
