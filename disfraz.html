@@ -276,6 +276,51 @@
             font-weight: bold;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 	}
+		/* Estilos para la nueva sección de subida de archivos */
+    .upload-container {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 2rem;
+        background-color: rgba(51, 51, 51, 0.8);
+        border-radius: 10px;
+        border: 2px solid #ffcc00;
+    }
+
+    .upload-container p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        font-family: 'Roboto Slab', serif;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+    
+    .upload-container input[type="file"] {
+        display: block;
+        margin: 0 auto 1rem;
+        padding: 10px;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #ffcc00;
+        border-radius: 5px;
+    }
+
+    .upload-container button {
+        padding: 0.7rem 2rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border: 2px solid #ffcc00;
+        background-color: rgba(255, 165, 0, 0.8);
+        color: #fff;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        font-family: 'Roboto Slab', serif;
+    }
+    
+    .upload-container button:hover {
+        background-color: rgba(255, 0, 0, 0.5);
+        transform: scale(1.05);
+    }
     </style>
 </head>
 <body>
@@ -331,6 +376,14 @@
             </div>
         </div>
     </div>
+	<div class="upload-container">
+            <p>Si has hecho algún video/foto nos gustaría que lo subieras aquí, gracias.</p>
+            <form id="uploadForm">
+                <input type="file" id="fileInput" name="file" accept="video/*,image/*" required>
+                <button type="button" onclick="uploadFile()">Subir archivo</button>
+            </form>
+            <p id="uploadStatus"></p>
+        </div>
     <div class="audio-container">
         <button id="playButton" class="audio-button">
             <i id="playIcon" class="fas fa-play"></i>
@@ -345,6 +398,9 @@
 
         // URL del webhook para RECIBIR los resultados (el segundo flujo)
         const urlWebhookResultados = 'https://n8n.service-automate-madruga.es/webhook/conteo';
+
+		// URL del Webhook para la subida de archivos
+        const urlWebhookSubida = 'http://n8n.service-automate-madruga.es/webhook/multimedia';
 
         // lista de líderes
         const lideres = ["Donald Trump", "Vladimir Putin", "Milei", "Zelensky", "El PAPA", "Nicolás Maduro", "Kim Jong-Un", "Pedro Sánchez"];
@@ -548,10 +604,49 @@
         	playIcon.classList.add('fa-play');
     	    }
 	});
+		 * Función para subir archivos a n8n
+     */
+    async function uploadFile() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        
+        if (!file) {
+            uploadStatus.textContent = 'Por favor, selecciona un archivo.';
+            uploadStatus.style.color = '#ff4d4d';
+            return;
+        }
+
+        uploadStatus.textContent = 'Subiendo archivo...';
+        uploadStatus.style.color = '#FFFFFF';
+        
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        try {
+            const response = await fetch(urlWebhookSubida, {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (response.ok) {
+                uploadStatus.textContent = '¡Archivo subido con éxito!';
+                uploadStatus.style.color = '#ffcc00';
+            } else {
+                uploadStatus.textContent = 'Error al subir el archivo. Inténtalo de nuevo.';
+                uploadStatus.style.color = '#ff4d4d';
+                console.error('Error del servidor:', await response.text());
+            }
+        } catch (error) {
+            uploadStatus.textContent = 'Error de conexión. Revisa tu internet.';
+            uploadStatus.style.color = '#ff4d4d';
+            console.error('Error de conexión:', error);
+        }
+    }
     </script>
 </body>
 
 </html>
+
 
 
 
