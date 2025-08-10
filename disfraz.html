@@ -717,12 +717,14 @@ async function uploadFile() {
     if (files.length === 0) {
         uploadStatus.textContent = 'Por favor, selecciona al menos un archivo.';
         uploadStatus.style.color = '#ff4d4d';
+		uploadStatus.style.fontSize = '12px';
         return;
     }
 
     uploadStatus.textContent = `Subiendo ${files.length} archivo(s)...`;
     uploadStatus.style.color = '#ffffff';
-    
+    uploadStatus.style.fontSize = '12px';
+	
     const formData = new FormData();
     
     for (const file of files) {
@@ -738,21 +740,25 @@ async function uploadFile() {
         if (response.ok) {
             uploadStatus.textContent = `¡${files.length} archivo(s) subido(s) con éxito!`;
             uploadStatus.style.color = '#008000'; 
+			uploadStatus.style.fontSize = '12px';
             // Opcional: Limpiar el input de archivo después de la subida
             fileInput.value = '';
         } else {
             uploadStatus.textContent = 'Error al subir los archivos. Inténtalo de nuevo.';
             uploadStatus.style.color = '#ff4d4d';
+			uploadStatus.style.fontSize = '12px';
             console.error('Error del servidor:', await response.text());
         }
     } catch (error) {
         uploadStatus.textContent = 'Error de conexión. Revisa tu internet.';
         uploadStatus.style.color = '#ff4d4d';
+		uploadStatus.style.fontSize = '12px';
         console.error('Error de conexión:', error);
     }
 }
     </script>
 </body>
 </html>
+
 
 
