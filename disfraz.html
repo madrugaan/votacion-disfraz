@@ -692,7 +692,7 @@ audio.addEventListener('ended', () => {
     progressBar.value = 0;
 });
 
-	// Obtener los elementos de la sección de subida de archivos
+			// Obtener los elementos de la sección de subida de archivos
 		const fileInput = document.getElementById('fileInput');
 		const customUploadButton = document.getElementById('customUploadButton');
 		const uploadStatus = document.getElementById('uploadStatus');
@@ -721,7 +721,7 @@ async function uploadFile() {
     }
 
     uploadStatus.textContent = `Subiendo ${files.length} archivo(s)...`;
-    uploadStatus.style.color = '#FFFFFF';
+    uploadStatus.style.color = '#556B2F';
     
     const formData = new FormData();
     
@@ -737,7 +737,7 @@ async function uploadFile() {
         
         if (response.ok) {
             uploadStatus.textContent = `¡${files.length} archivo(s) subido(s) con éxito!`;
-            uploadStatus.style.color = '#556B2F';
+            uploadStatus.style.color = '#ffffff';
             // Opcional: Limpiar el input de archivo después de la subida
             fileInput.value = '';
         } else {
