@@ -361,30 +361,27 @@ margin-left: 0.5rem;
 
      /* --------- Nuevos estilos para la Galería --------- */
         .gallery-button {
-            position: relative;
-			align-items: center;
-			margin-top: 8px;
-            bottom: 20px;
-            text-align: center;
-            padding: 1rem;
-            font-size: 1rem;
-            cursor: pointer;
-            border: 2px solid #ffcc00;
-            background-color: #333;
-            color: #fff;
-            border-radius: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            font-family: 'Roboto Slab', serif;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .gallery-button:hover {
-            background-color: rgba(255, 0, 0, 0.5);
-            transform: scale(1.05);
-        }
+    /* Elimina las propiedades de posicionamiento fijo */
+    width: 100%; /* Ocupa todo el ancho */
+    padding: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: 2px solid #ffcc00;
+    background-color: rgba(255, 165, 0, 0.8);
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    transition: all 0.3s;
+    font-family: 'Roboto Slab', serif;
+    letter-spacing: 2px;
+}
+.gallery-button:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+}
 
         .gallery-container {
             display: none;
@@ -538,8 +535,9 @@ margin-left: 0.5rem;
             <p id="uploadStatus"></p>
         </div>
         
-        <button id="galleryButton" class="gallery-button">Galería</button>
-        
+       <div class="vote-button-container"> 
+    <button id="galleryButton" class="gallery-button"> VER GALERIA</button>
+</div>
     </div> </div> <div id="gallery-interface" class="gallery-container">
     <div class="gallery-header">
         <h2>GALERIA MULTIMEDIA</h2>
@@ -953,6 +951,7 @@ mediaGrid.innerHTML = '';
     </script>
 </body>
 </html>
+
 
 
 
