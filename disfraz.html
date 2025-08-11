@@ -162,7 +162,7 @@
         
         .leader-name {
             font-family: 'Roboto Slab', serif;
-            font-size: 0.9vw !important;
+            font-size: 6vw !important;
             text-transform: uppercase;
         }
 		
@@ -470,19 +470,19 @@ margin-left: 0.5rem;
     <div id="countdown-timer" class="countdown"></div>
     <div class="container">
         <h1>BATALLA LIDERES MUNDIALES</h1>
-<div class="audio-container">
-    <div class="audio-controls">
-        <button id="playButton" class="audio-button">
-            <i id="playIcon" class="fas fa-play"></i>
-        </button>
-	<span class="audio-text">ESCUCHA LA BATALLA MUNDIAL 💥​</span>
-        <div class="audio-progress">
-    <span id="currentTime">0:00</span>
-    <input type="range" id="progressBar" value="0" max="100">
-</div>
-    </div>
-    	<audio id="myAudio" src="LideresMundiales.mp3"></audio>
-   </div>
+        <div class="audio-container">
+            <div class="audio-controls">
+                <button id="playButton" class="audio-button">
+                    <i id="playIcon" class="fas fa-play"></i>
+                </button>
+                <span class="audio-text">ESCUCHA LA BATALLA MUNDIAL 💥​</span>
+                <div class="audio-progress">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" id="progressBar" value="0" max="100">
+                </div>
+            </div>
+            <audio id="myAudio" src="LideresMundiales.mp3"></audio>
+        </div>
         <form id="voteForm">
             <label for="trump">
                 <input type="radio" id="trump" name="presidente" value="Donald Trump" required>
@@ -520,39 +520,33 @@ margin-left: 0.5rem;
                 <button type="submit">Votar</button>
             </div>
         </form>
-	<p id="customAlert" class="custom-alert">
-
-	</p>
+        <p id="customAlert" class="custom-alert"></p>
         <div id="resultados" class="results-container">
             <h2>RESULTADOS DE LA VOTACION</h2>
             <div id="barsContainer">
                 <p>Cargando resultados...</p>
             </div>
         </div>
-	<div class="upload-section">
-                <p>Si has hecho algún video / foto nos gustaría que los subieras aquí, gracias.</p>
-                <form id="uploadForm">
-        		<input type="file" id="fileInput" name="file[]" accept="video/*,image/*" multiple required style="display: none;">
+        <div class="upload-section">
+            <p>Si has hecho algún video / foto nos gustaría que los subieras aquí, gracias.</p>
+            <form id="uploadForm">
+                <input type="file" id="fileInput" name="file[]" accept="video/*,image/*" multiple required style="display: none;">
+                <button type="button" id="customUploadButton">Subir archivos</button>
+            </form>
+            <p id="uploadStatus"></p>
+        </div>
         
-        		<button type="button" id="customUploadButton">Subir archivos</button>
-    		</form>
-    		<p id="uploadStatus"></p>
-	</div>
-
-	<button id="galleryButton" class="gallery-button">Galeria</button>
-    
-
-    <div id="gallery-interface" class="gallery-container">
-        <div class="gallery-header">
-            <h2>GALERIA MULTIMEDIA</h2>
-            <button id="backButton" class="back-button">VOLVER</button>
-	    <button id="refreshButton" class="back-button">ACTUALIZAR</button>
-        </div>
-        <div id="mediaGrid" class="media-grid">
-        </div>
+        <button id="galleryButton" class="gallery-button">Galería</button>
+        
+    </div> </div> <div id="gallery-interface" class="gallery-container">
+    <div class="gallery-header">
+        <h2>GALERIA MULTIMEDIA</h2>
+        <button id="backButton" class="back-button">VOLVER</button>
+        <button id="refreshButton" class="back-button">ACTUALIZAR</button>
     </div>
-	    </div>
-	</div>
+    <div id="mediaGrid" class="media-grid">
+    </div>
+</div>
     <script>
         // URL del webhook para ENVIAR el voto (el primer flujo)
         const urlWebhookVoto = 'https://n8n.service-automate-madruga.es/webhook/voto';
@@ -956,6 +950,4 @@ mediaGrid.innerHTML = '';
 }
     </script>
 </body>
-
 </html>
-
