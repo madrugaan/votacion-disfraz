@@ -406,16 +406,29 @@ margin-left: 0.5rem;
         }
         
         /* Nuevo estilo para el título de la galería, centrándolo */
-        .gallery-header h2 {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            margin: 0;
-            border: none;
-            background: none;
-            font-size: 2rem;
-            text-align: center;
-        }
+        .container h2 {
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    font-size: 1.5rem; /* Aseguramos que el H2 principal sea de 1.5rem */
+    margin: 2rem 0 1rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    background-color: #333;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 2px solid #ffcc00;
+}
+
+/* Estilo del título de la galería (el que causa el problema) */
+.gallery-header h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    border: none;
+    background: none;
+    font-size: 2rem; /* Este es el tamaño de la galería, y no debería afectar al otro H2 */
+    text-align: center;
+}
 
         /* Estilo para el botón de volver en la esquina superior izquierda */
         .back-button {
@@ -952,3 +965,4 @@ mediaGrid.innerHTML = '';
     </script>
 </body>
 </html>
+
