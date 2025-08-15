@@ -780,8 +780,14 @@ function formatTime(seconds) {
 
 // Cuando la metadata del audio se ha cargado
 audio.addEventListener('loadedmetadata', () => {
-    durationSpan.textContent = formatTime(audio.duration);
-    progressBar.max = audio.duration;
+    // Definimos la duración real del audio en segundos (8 minutos y 1 segundo)
+    const duracionReal = 481; 
+    
+    // Asignamos la duración real al atributo 'max' de la barra
+    progressBar.max = duracionReal;
+    
+    // Mostramos la duración correcta en el contador
+    durationTime.textContent = formatTime(duracionReal);
 });
 
 // Actualizar la barra de progreso y el tiempo a medida que se reproduce
@@ -952,6 +958,7 @@ mediaGrid.innerHTML = '';
 </body>
 
 </html>
+
 
 
 
