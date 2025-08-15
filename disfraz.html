@@ -951,3 +951,957 @@ mediaGrid.innerHTML = '';
     </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=0.38, user-scalable=yes">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Votación Líderes Mundiales AF2025</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%), url('https://raw.githubusercontent.com/tu-usuario/tu-repositorio/main/assets/images/fondo-humo.jpg'); /* Reemplaza con tu URL de fondo */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+	        margin-top: 1rem;
+
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+            font-size: 2.5rem !important;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        h2 {
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+            font-size: 1.5rem !important;
+            margin: 2rem 0 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            background-color: #333;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 2px solid #ffcc00;
+        }
+
+        #voteForm {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        #voteForm label {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            cursor: pointer;
+            border: 3px solid;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.2s, border-color 0.2s;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #voteForm label:hover {
+            transform: scale(1.05);
+            border-color: #ffcc00;
+        }
+
+        #voteForm label.selected {
+            border-color: #ffcc00;
+            box-shadow: 0 0 15px #ffcc00;
+        }
+
+        #voteForm input[type="radio"] {
+            display: none;
+        }
+
+        #voteForm .label-text {
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: bold;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        /* Imágenes de los líderes (ajusta las URLs) */
+        #voteForm label[for="putin"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/putin.jpeg'); }
+        #voteForm label[for="trump"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/trump.jpeg'); }
+        #voteForm label[for="milei"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/milei.jpeg'); }
+        #voteForm label[for="zelensky"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/zelensky.jpeg'); }
+        #voteForm label[for="papa"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/papa.jpeg'); }
+        #voteForm label[for="maduro"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/maduro.jpeg'); }
+        #voteForm label[for="kim"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/kim.jpeg'); }
+        #voteForm label[for="sanchez"] { background-image: url('https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/sanchez.jpeg'); }
+
+        .vote-button-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        button[type="submit"] {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: 2px solid #ffcc00;
+            background-color: rgba(255, 165, 0, 0.8); /* Fondo semitransparente */
+            color: #fff; /* Texto blanco */
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* Sombra de brillo rojo */
+            transition: all 0.3s;
+            font-family: 'Roboto Slab', serif; /* Mantener la misma fuente */
+            letter-spacing: 2px; /* Añadir espaciado de letras */
+        }
+
+        button[type="submit"]:hover {
+            background-color: rgba(255, 0, 0, 0.5); /* Fondo rojo semitransparente al pasar el ratón */
+            transform: scale(1.05); /* Escalar ligeramente */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 1); /* Aumentar el brillo */
+        }
+
+        /* Sección de resultados */
+        .results-container {
+            margin-top: 3rem;
+        }
+        
+        .leader-result {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .leader-image {
+            width: 80px;
+            height: 80px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+        
+        .leader-name {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.025vw !important;
+            text-transform: uppercase;
+        }
+		
+        .result-bar-container {
+            background-color: #333;
+            border-radius: 5px;
+            height: 30px;
+            width: 100%;
+            overflow: hidden;
+            margin-right: 32rem;
+            position: relative;
+        }
+        
+        .result-fill {
+            height: 100%;
+            background-image: linear-gradient(90deg, #ffcc00, #ff8c00);
+            text-align: right;
+            color: white;
+            line-height: 30px;
+            padding-right: 1rem;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: width 0.5s ease-in-out;
+            border-right: 2px solid #e6b800;
+        }
+        
+        .result-percentage {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+        
+        #barsContainer p {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+        }
+        .custom-alert {
+            text-align: center;
+            margin: 1rem auto; /* Se ha cambiado para centrar el bloque */
+            margin-top: 1rem;
+            color: #ffcc00;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: none; /* Por defecto estará oculto */
+        }
+	
+	.countdown {
+    	    position: relative;
+    	    top: 20px; /* Posición desde la parte superior */
+    	    left: 50%; /* Centrado horizontalmente */
+    	    transform: translateX(-50%); /* Ajuste para centrarlo perfectamente */
+    	    width: fit-content;
+   	    padding: 10px 20px;
+   	    font-size: 2rem;
+   	    font-weight: bold;
+   	    color: #ff0000; /* Color rojo */
+   	    background-color: rgba(0, 0, 0, 0.8);
+   	    border: 2px solid #ffcc00;
+   	    border-radius: 5px;
+   	    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* Sombra que simula brillo rojo */
+   	    z-index: 1000;
+   	    font-family: 'Roboto Slab', serif;
+   	    letter-spacing: 2px;
+	}
+
+	.audio-container {
+    	    text-align: center;
+
+    	    cursor: pointer;
+	}
+
+	.audio-content {
+            align-items: center;
+    	    justify-content: center;
+    	    gap: 1rem; /* Espacio entre el botón y el texto */
+	}
+
+	.audio-button {
+    	    background-color: transparent;
+    	    border: 2px solid #ffcc00;
+    	    color: #ffcc00;
+    	    border-radius: 50%;
+   	    width: 60px;
+    	    height: 60px;
+   	    font-size: 1.5rem;  
+   	    align-items: center;
+   	    justify-content: center;
+   	    margin: 0 auto; /* Para centrar el botón */
+   	    cursor: pointer;
+   	    transition: all 0.3s ease;
+   	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+	}
+
+	.audio-button:hover {
+   	    background-color: #ffcc00;
+  	    color: #000;
+  	    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+	}
+
+	.audio-button:active {
+            transform: scale(0.95);
+	}
+
+	.audio-text {
+	    margin-left: 0.7rem;
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-family: 'Roboto Slab', serif;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	}
+	
+	.audio-controls {
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.audio-progress {
+display: flex;
+margin-left: 14.2rem;
+    align-items: center;
+    width: 390px; /* Ajusta el ancho según tu diseño */
+margin-bottom: 2.5rem;
+}
+
+#progressBar {
+margin-left: 0.5rem;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 88%;
+    height: 8px;
+    background: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+#progressBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #ffcc00;
+    border-radius: 50%;
+    cursor: pointer;
+}
+	
+	/* Estilos para la sección de subida de archivos */
+    .upload-section {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    .upload-section p {
+        font-size: 1.2rem !important;
+        margin-bottom: 1.5rem;
+        font-family: 'Roboto Slab', serif;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+    
+    .upload-section input[type="file"] {
+        display: block;
+        margin: 0 auto 1rem;
+        padding: 10px;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #ffcc00;
+        border-radius: 5px;
+    }
+
+    .upload-section button {
+        padding: 0.7rem 2rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border: 2px solid #ffcc00;
+        background-color: rgba(255, 165, 0, 0.8);
+        color: #fff;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        font-family: 'Roboto Slab', serif;
+    }
+    
+    .upload-section button:hover {
+        background-color: rgba(255, 0, 0, 0.5);
+        transform: scale(1.05);
+    }
+    
+    .upload-section #uploadStatus {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+
+     /* --------- Nuevos estilos para la Galería --------- */
+        .gallery-button {
+    /* Elimina las propiedades de posicionamiento fijo */
+    width: 100%; /* Ocupa todo el ancho */
+    padding: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: 2px solid #ffcc00;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    transition: all 0.3s;
+    font-family: 'Roboto Slab', serif;
+    letter-spacing: 2px;
+}
+.gallery-button:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+}
+
+        .gallery-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-y: auto;
+            z-index: 1001;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative; /* Agregado para posicionar el título */
+        }
+    
+.gallery-header h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    border: none;
+    background: none;
+    font-size: 2rem; /* Este es el tamaño de la galería, y no debería afectar al otro H2 */
+    text-align: center;
+}
+
+        /* Estilo para el botón de volver en la esquina superior izquierda */
+        .back-button {
+            order: -1; /* Esto lo mueve al inicio del Flexbox */
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 2px solid #ffcc00;
+            background-color: rgba(255, 165, 0, 0.8);
+            color: #fff;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Roboto Slab', serif;
+            z-index: 10; /* Para asegurar que esté por encima del título si se superponen */
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .media-grid {
+            display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 200px; /* Provide some height for vertical centering */
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: wrap; /* Allows items to wrap in flexbox */
+        }
+
+        .media-grid img,
+        .media-grid video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Quitamos el estilo fijo de los videos para que sean responsive */
+        .media-item.video {
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+<div id="main-interface">
+    <div id="countdown-timer" class="countdown"></div>
+    <div class="container">
+        <h1>BATALLA LIDERES MUNDIALES</h1>
+        <div class="audio-container">
+            <div class="audio-controls">
+                <button id="playButton" class="audio-button">
+                    <i id="playIcon" class="fas fa-play"></i>
+                </button>
+                <span class="audio-text">ESCUCHA LA BATALLA MUNDIAL 💥​</span>
+                <div class="audio-progress">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" id="progressBar" value="0" max="100">
+                </div>
+            </div>
+            <audio id="myAudio" src="LideresMundiales.wav"></audio>
+        </div>
+        <form id="voteForm">
+            <label for="trump">
+                <input type="radio" id="trump" name="presidente" value="Donald Trump" required>
+                <span class="label-text">Donald Trump</span>
+            </label>
+            <label for="kim">
+                <input type="radio" id="kim" name="presidente" value="Kim Jong-Un" required>
+                <span class="label-text">Kim Jong-Un</span>
+            </label>
+            <label for="putin">
+                <input type="radio" id="putin" name="presidente" value="Vladimir Putin" required>
+                <span class="label-text">Vladimir Putin</span>
+            </label>
+            <label for="zelensky">
+                <input type="radio" id="zelensky" name="presidente" value="Zelensky" required>
+                <span class="label-text">Zelensky</span>
+            </label>
+            <label for="maduro">
+                <input type="radio" id="maduro" name="presidente" value="Nicolás Maduro" required>
+                <span class="label-text">Nicolás Maduro</span>
+            </label>
+            <label for="milei">
+                <input type="radio" id="milei" name="presidente" value="Milei" required>
+                <span class="label-text">Milei</span>
+            </label>
+            <label for="sanchez">
+                <input type="radio" id="sanchez" name="presidente" value="Pedro Sánchez" required>
+                <span class="label-text">Pedro Sánchez</span>
+            </label>
+            <label for="papa">
+                <input type="radio" id="papa" name="presidente" value="El PAPA" required>
+                <span class="label-text">El PAPA</span>
+            </label>
+            <div class="vote-button-container">
+                <button type="submit">Votar</button>
+            </div>
+        </form>
+        <p id="customAlert" class="custom-alert"></p>
+        <div id="resultados" class="results-container">
+            <h2>RESULTADOS DE LA VOTACION</h2>
+            <div id="barsContainer">
+                <p>Cargando resultados...</p>
+            </div>
+        </div>
+        <div class="upload-section">
+            <p>Si has hecho algún video / foto nos gustaría que los subieras aquí, gracias.</p>
+            <form id="uploadForm">
+                <input type="file" id="fileInput" name="file[]" accept="video/*,image/*" multiple required style="display: none;">
+                <button type="button" id="customUploadButton">Subir archivos</button>
+            </form>
+            <p id="uploadStatus"></p>
+        </div>
+        
+       <div class="vote-button-container"> 
+    <button id="galleryButton" class="gallery-button"> VER GALERIA</button>
+</div>
+    </div> </div> <div id="gallery-interface" class="gallery-container">
+    <div class="gallery-header">
+        <h2>GALERIA MULTIMEDIA</h2>
+        <button id="backButton" class="back-button">VOLVER</button>
+        <button id="refreshButton" class="back-button">ACTUALIZAR</button>
+    </div>
+    <div id="mediaGrid" class="media-grid">
+    </div>
+</div>
+    <script>
+        // URL del webhook para ENVIAR el voto (el primer flujo)
+        const urlWebhookVoto = 'https://n8n.service-automate-madruga.es/webhook/voto';
+
+        // URL del webhook para RECIBIR los resultados (el segundo flujo)
+        const urlWebhookResultados = 'https://n8n.service-automate-madruga.es/webhook/conteo';
+
+	// URL del Webhook para la subida de archivos
+        const urlWebhookSubida = 'https://n8n.service-automate-madruga.es/webhook/multimedia';
+
+	// URL del Webhook para obtener los archivos de Google Drive
+        const urlWebhookGaleria = 'https://n8n.service-automate-madruga.es/webhook/galeria';
+
+	// URL del Webhook para obtener un solo archivo (el proxy)
+	const urlWebhookProxy = 'https://n8n.service-automate-madruga.es/webhook/get-file';
+
+        // lista de líderes
+        const lideres = ["Donald Trump", "Vladimir Putin", "Milei", "Zelensky", "El PAPA", "Nicolás Maduro", "Kim Jong-Un", "Pedro Sánchez"];
+        
+        // Objeto de mapeo para nombres de imágenes
+        const leaderImages = {
+            "Donald Trump": "trump.jpeg",
+            "Vladimir Putin": "putin.jpeg",
+            "Milei": "milei.jpeg",
+            "Zelensky": "zelensky.jpeg",
+            "El PAPA": "papa.jpeg",
+            "Nicolás Maduro": "maduro.jpeg",
+            "Kim Jong-Un": "kim.jpeg",
+            "Pedro Sánchez": "sanchez.jpeg"
+        };
+
+        const form = document.getElementById('voteForm');
+        const barsContainer = document.getElementById('barsContainer');
+        const leaderLabels = form.querySelectorAll('label');
+
+	// Elemento del temporizador
+    const countdownTimer = document.getElementById('countdown-timer');
+    let countdownInterval;
+
+    // Función para iniciar el temporizador de cuenta atrás hasta una fecha específica
+    function startCountdown() {
+        // Establece la fecha de destino: 22 de agosto de 2025 a las 9:00:00 (viernes)
+        const countdownDate = new Date("Aug 22, 2025 09:00:00").getTime();
+
+        countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                countdownTimer.textContent = "00:00:00:00";
+                form.style.display = 'none';
+                document.getElementById('customAlert').textContent = "La votación ha terminado.";
+                document.getElementById('customAlert').style.display = 'block';
+            } else {
+                countdownTimer.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+        }, 1000);
+    }
+        
+        // Manejar selección de radio buttons para resaltar
+        leaderLabels.forEach(label => {
+            label.addEventListener('click', () => {
+                leaderLabels.forEach(lbl => lbl.classList.remove('selected'));
+                label.classList.add('selected');
+            });
+        });
+
+        // Función para cargar los resultados de la votación
+        async function cargarResultados() {
+            try {
+                const res = await fetch(urlWebhookResultados);
+                if (!res.ok) {
+                    console.error('Error al cargar los resultados. Asegúrate de que el webhook de resultados está activo.');
+                    return;
+                }
+                const datos = await res.json();
+                actualizarUI(datos);
+            } catch (error) {
+                console.error('Error al conectar con el servidor de resultados:', error);
+            }
+        }
+        
+        // Función para actualizar la interfaz de usuario con los resultados
+        function actualizarUI(datos) {
+            if (!datos || Object.keys(datos).length === 0) {
+                barsContainer.innerHTML = '<p>No se han encontrado resultados.</p>';
+                return;
+            }
+            
+            const total = lideres.reduce((acc, lider) => acc + (datos[lider] || 0), 0) || 1;
+            barsContainer.innerHTML = '';
+        
+            const resultadosOrdenables = lideres.map(lider => {
+                return {
+                    nombre: lider,
+                    votos: datos[lider] || 0,
+                    porcentaje: total > 0 ? Math.round(((datos[lider] || 0) / total) * 100) : 0
+                };
+            });
+            
+            resultadosOrdenables.sort((a, b) => b.votos - a.votos);
+
+            resultadosOrdenables.forEach(resultado => {
+                const leaderResult = document.createElement('div');
+                leaderResult.className = 'leader-result';
+
+                const leaderImage = document.createElement('div');
+                leaderImage.className = 'leader-image';
+                const imagePath = leaderImages[resultado.nombre] ? `https://raw.githubusercontent.com/madrugaan/votacion-disfraz/main/assets/${leaderImages[resultado.nombre]}` : '';
+                leaderImage.style.backgroundImage = `url('${imagePath}')`;
+
+                const leaderName = document.createElement('div');
+                leaderName.className = 'leader-name';
+                leaderName.textContent = resultado.nombre;
+				
+                const resultBarContainer = document.createElement('div');
+                resultBarContainer.className = 'result-bar-container';
+
+                const resultFill = document.createElement('div');
+                resultFill.className = 'result-fill';
+                resultFill.style.width = resultado.porcentaje + '%';
+                resultFill.textContent = `  ${resultado.porcentaje}%`;
+
+                const resultPercentage = document.createElement('div');
+                resultPercentage.className = 'result-percentage';
+                // resultPercentage.textContent = `${resultado.porcentaje}%`;
+
+                resultBarContainer.appendChild(resultFill);
+
+                leaderResult.appendChild(leaderImage);
+                leaderResult.appendChild(leaderName);
+                leaderResult.appendChild(resultBarContainer);
+                leaderResult.appendChild(resultPercentage);
+
+                barsContainer.appendChild(leaderResult);
+            });
+        }
+        
+        // Manejador del evento de envío del formulario
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const liderVotado = formData.get('presidente');
+        
+            if (!liderVotado) {
+                alert('Por favor, selecciona un candidato antes de votar.');
+                return;
+            }
+        
+            try {
+                const res = await fetch(urlWebhookVoto, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ presidente: liderVotado })
+                });
+        
+                if (!res.ok) {
+                    // Si ocurre un error, muestra un mensaje diferente.
+                    customAlert.textContent = '¡Oh, oh! Ha ocurrido un error al enviar tu voto. Inténtalo de nuevo.';
+                    customAlert.style.color = '#ff4d4d'; // Color rojo para el error
+                    customAlert.style.display = 'block';
+                    console.error('Error del servidor:', await res.text());
+                    return;
+                }
+                
+                // Muestra el mensaje de éxito personalizado
+                customAlert.textContent = `¡Gracias por tu voto! Has votado por ${liderVotado}.`;
+                customAlert.style.color = '#FFFFFF'; // Color blanco
+                customAlert.style.display = 'block';
+
+                form.reset();
+                leaderLabels.forEach(lbl => lbl.classList.remove('selected'));
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                cargarResultados();
+        
+            } catch (error) {
+                // Muestra el mensaje de error de conexión personalizado
+                customAlert.textContent = 'Error de conexión: No se pudo enviar el voto. Revisa tu conexión a internet.';
+                customAlert.style.color = '#ff4d4d';
+                customAlert.style.display = 'block';
+                console.error('Error de conexión:', error);
+            }
+        });
+        
+        // Carga los resultados al iniciar la página
+        cargarResultados();
+        
+        // Refresca los resultados cada 10 segundos
+        setInterval(cargarResultados, 10000);
+
+	// Inicia el temporizador de cuenta atrás
+        startCountdown();
+	
+	// Obtener el elemento de audio y el botón
+	const audio = document.getElementById('myAudio');
+	const playButton = document.getElementById('playButton');
+	const playIcon = document.getElementById('playIcon');
+
+	// Añadir un evento de clic al botón
+	playButton.addEventListener('click', () => {
+   	    if (audio.paused) {
+        	audio.play();
+        	playIcon.classList.remove('fa-play');
+        	playIcon.classList.add('fa-pause');
+    	    } else {
+        	audio.pause();
+        	playIcon.classList.remove('fa-pause');
+        	playIcon.classList.add('fa-play');
+    	    }
+	});
+
+	// Obtener los nuevos elementos de la barra de progreso
+const progressBar = document.getElementById('progressBar');
+const currentTimeSpan = document.getElementById('currentTime');
+const durationSpan = document.getElementById('duration');
+
+// Función para formatear el tiempo
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+// Cuando la metadata del audio se ha cargado
+audio.addEventListener('loadedmetadata', () => {
+    durationSpan.textContent = formatTime(audio.duration);
+    progressBar.max = audio.duration;
+});
+
+// Actualizar la barra de progreso y el tiempo a medida que se reproduce
+audio.addEventListener('timeupdate', () => {
+    progressBar.value = audio.currentTime;
+    currentTimeSpan.textContent = formatTime(audio.currentTime);
+});
+
+// Sincronizar el audio con la barra de progreso cuando el usuario la arrastra
+progressBar.addEventListener('input', () => {
+    audio.currentTime = progressBar.value;
+});
+
+// Actualizar el botón al finalizar la canción
+audio.addEventListener('ended', () => {
+    playIcon.classList.remove('fa-pause');
+    playIcon.classList.add('fa-play');
+    audio.currentTime = 0;
+    progressBar.value = 0;
+});
+
+			// Obtener los elementos de la sección de subida de archivos
+		const fileInput = document.getElementById('fileInput');
+		const customUploadButton = document.getElementById('customUploadButton');
+		const uploadStatus = document.getElementById('uploadStatus');
+
+	// Asignar el evento click del botón personalizado al input oculto
+		customUploadButton.addEventListener('click', () => {
+    		fileInput.click();
+	});
+
+	// Asignar un "event listener" al input de archivo para detectar cuando se seleccionan los archivos
+	fileInput.addEventListener('change', () => {
+    	// Cuando el usuario ha seleccionado los archivos y cierra el modal, 
+    	// se llama a la función uploadFile
+    		uploadFile();
+	});
+
+	// Función para subir archivos a n8n
+async function uploadFile() {
+    const files = fileInput.files;
+    
+    // Aquí puedes añadir una verificación para asegurarte de que hay archivos antes de continuar
+    if (files.length === 0) {
+        uploadStatus.textContent = 'Por favor, selecciona al menos un archivo.';
+        uploadStatus.style.color = '#ff4d4d';
+		uploadStatus.style.fontSize = '12px';
+        return;
+    }
+
+    uploadStatus.textContent = `Subiendo ${files.length} archivo(s)...`;
+    uploadStatus.style.color = '#ffffff';
+    uploadStatus.style.fontSize = '12px';
+	
+    const formData = new FormData();
+    
+    for (const file of files) {
+        formData.append('file[]', file);
+    }
+    
+    try {
+        const response = await fetch(urlWebhookSubida, {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            uploadStatus.textContent = `¡${files.length} archivo(s) subido(s) con éxito!`;
+            uploadStatus.style.color = '#008000'; 
+			uploadStatus.style.fontSize = '12px';
+            // Opcional: Limpiar el input de archivo después de la subida
+            fileInput.value = '';
+        } else {
+            uploadStatus.textContent = 'Error al subir los archivos. Inténtalo de nuevo.';
+            uploadStatus.style.color = '#ff4d4d';
+			uploadStatus.style.fontSize = '12px';
+            console.error('Error del servidor:', await response.text());
+        }
+    } catch (error) {
+        uploadStatus.textContent = 'Error de conexión. Revisa tu internet.';
+        uploadStatus.style.color = '#ff4d4d';
+		uploadStatus.style.fontSize = '12px';
+        console.error('Error de conexión:', error);
+    }
+}
+// --------- Nuevas funciones para la Galería ---------
+        const mainInterface = document.getElementById('main-interface');
+        const galleryInterface = document.getElementById('gallery-interface');
+        const galleryButton = document.getElementById('galleryButton');
+        const backButton = document.getElementById('backButton');
+        const mediaGrid = document.getElementById('mediaGrid');
+	const refreshButton = document.getElementById('refreshButton');
+	let galleryCache = null;
+
+        // Muestra la interfaz de la galería
+        galleryButton.addEventListener('click', async () => {
+            mainInterface.style.display = 'none';
+            galleryInterface.style.display = 'block';
+            await fetchGalleryContent();
+        });
+
+        // Vuelve a la interfaz principal
+        backButton.addEventListener('click', () => {
+            galleryInterface.style.display = 'none';
+            mainInterface.style.display = 'block';
+        });
+
+	// NUEVO EVENTO PARA EL BOTÓN DE ACTUALIZAR
+refreshButton.addEventListener('click', async () => {
+    // Invalida la caché y fuerza una nueva carga
+    galleryCache = null;
+    await fetchGalleryContent(); 
+});
+
+        // Función para obtener y mostrar las imágenes y vídeos de Google Drive
+        async function fetchGalleryContent() {
+	 // Si la caché ya tiene datos, los mostramos directamente
+    if (galleryCache) {
+        renderGallery(galleryCache);
+        return;
+    }
+    const loadingTimeout = setTimeout(() => {mediaGrid.innerHTML = '<p>Cargando galería...</p>';}, 300);
+    try {
+        const response = await fetch(urlWebhookGaleria);
+
+        if (!response.ok) {
+            mediaGrid.innerHTML = '<p>No se pudo cargar la galería. Revisa la configuración del webhook.</p>';
+            return;
+        }
+        
+        const data = await response.json(); 
+        
+       // Guardamos los datos en la caché para usos futuros
+        galleryCache = data.files;
+
+        if (galleryCache && galleryCache.length > 0) {
+            renderGallery(galleryCache);
+        } else {
+            mediaGrid.innerHTML = '<p>La galería está vacía. No hay archivos para mostrar.</p>';
+        }
+    } catch (error) {
+        clearTimeout(loadingTimeout); // Limpia el temporizador en caso de error
+        mediaGrid.innerHTML = '<p>Error de conexión al cargar la galería. Revisa tu conexión a internet.</p>';
+        console.error('Error al cargar la galería:', error);
+    }
+}
+
+// La función renderGallery ahora recibe el array directamente, no necesita cambios.
+function renderGallery(files) {
+mediaGrid.innerHTML = ''; 
+  files.forEach(file => {
+    // La URL para cargar el archivo será tu webhook con el ID del archivo
+    const fileUrl = `${urlWebhookProxy}?id=${file.id}`;
+
+    if (file.mimeType.startsWith('image/')) {
+      const img = document.createElement('img');
+      img.src = fileUrl;
+      mediaGrid.appendChild(img);
+    } else if (file.mimeType.startsWith('video/')) {
+      const video = document.createElement('video');
+      video.src = fileUrl;
+      video.controls = true;
+      mediaGrid.appendChild(video);
+    }
+  });
+}
+    </script>
+</body>
+</html>
