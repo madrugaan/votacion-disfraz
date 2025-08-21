@@ -526,13 +526,10 @@ margin-left: 0.5rem;
                 <p>Cargando resultados...</p>
             </div>
         </div>
-	<div class="upload-section">
+
+    <div class="upload-section">
             <p>Si has hecho algún video / foto nos gustaría que los subieras aquí, gracias.</p>
-            <form id="uploadForm">
-                <a href="https://drive.google.com/drive/folders/12acwbyKhCBAH0Wfzzh5pZ1_3JXxmt6oC" target="_blank">
-                <button type="button" id="customUploadButton">Subir archivos</button>
-            </form>
-            <p id="uploadStatus"></p>
+             <a href="https://drive.google.com/drive/folders/12acwbyKhCBAH0Wfzzh5pZ1_3JXxmt6oC" target="_blank">
         </div>
         
        <div class="vote-button-container"> 
@@ -607,7 +604,7 @@ margin-left: 0.5rem;
                 document.getElementById('customAlert').textContent = "La votación ha terminado.";
                 document.getElementById('customAlert').style.display = 'block';
             } else {
-                countdownTimer.textContent = `${hours}h ${minutes}m ${seconds}s`;
+                countdownTimer.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
         }, 1000);
     }
@@ -796,8 +793,6 @@ audio.addEventListener('timeupdate', () => {
     currentTimeSpan.textContent = formatTime(audio.currentTime);
 });
 
-		
-
 // Sincronizar el audio con la barra de progreso cuando el usuario la arrastra
 progressBar.addEventListener('input', () => {
     audio.currentTime = progressBar.value;
@@ -958,4 +953,5 @@ mediaGrid.innerHTML = '';
 }
     </script>
 </body>
+
 </html>
